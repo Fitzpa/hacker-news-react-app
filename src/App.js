@@ -1,7 +1,10 @@
 import React from 'react';
+import { StoriesContainer } from './containers/storiesContainer';
 
-export const App = () => (
-  <div className="App">
-    <h1>hello</h1>
-  </div>
-);
+export const App = () => {
+  return (
+    <div className="App">
+      <StoriesContainer />
+    </div>
+  );
+};
