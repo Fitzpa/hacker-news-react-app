@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import colors from '../styles/colors.js';
 import { getStory } from '../services/hackerNewsAPI';
+
+const StoryContainer = styled.div`
+  background-color: ${colors.primary};
+  border-radius: 5px;
+  border-top: 1px solid ${colors.alt};
+  max-width: 1200px;
+  margin: 0 auto 1rem;
+  padding: 1rem;
+
+  &:first-of-type {
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+`;
 
 const Story = ({ storyId }) => {
   const [story, setStory] = useState([]);
   useEffect(() => {
-    getStory(storyId).then((data) => data && data.by && setStory(data));
+    getStory(storyId).then((data) => setStory(data));
   }, []);
 
   const unixTimeToDate = (unixTime) => {
@@ -17,18 +35,22 @@ const Story = ({ storyId }) => {
     });
   };
 
-  return (
-    <div className="story">
-      <h3>Author: {story.author}</h3>
-      <h3>Score: {story.score}</h3>
-      <h3>Title: {story.title}</h3>
-      <h3>Type: {story.type}</h3>
+  return story && story.url ? (
+    <StoryContainer className="story" data-testid="story">
       <h3>
-        <a href={story.url}>URL: {story.url}</a>
+        <strong>Author:</strong> {story.by}
       </h3>
-      <h3>Time: {unixTimeToDate(story.time)}</h3>
-    </div>
-  );
+      <h3>
+        <strong>Title:</strong> {story.title}
+      </h3>
+      <h3>
+        <strong>URL:</strong> <a href={story.url}>Read Article Here</a>
+      </h3>
+      <h3>
+        <strong>Time:</strong> {unixTimeToDate(story.time)}
+      </h3>
+    </StoryContainer>
+  ) : null;
 };
 
 export default Story;
