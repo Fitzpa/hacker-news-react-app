@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import colors from '../styles/colors.js';
 import { getStory } from '../services/hackerNewsAPI';
+import unixTimeToDate from '../utils/unixTimeToDate';
 
 const StoryContainer = styled.div`
   background-color: ${colors.primary};
@@ -10,6 +11,10 @@ const StoryContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto 1rem;
   padding: 1rem;
+
+  a {
+    color: ${colors.light};
+  }
 
   &:first-of-type {
   }
@@ -25,29 +30,16 @@ const Story = ({ storyId }) => {
     getStory(storyId).then((data) => setStory(data));
   }, []);
 
-  const unixTimeToDate = (unixTime) => {
-    const milliseconds = unixTime * 1000;
-    const dateObj = new Date(milliseconds);
-    return dateObj.toLocaleString('en-US', {
-      month: 'long', // "June"
-      day: '2-digit', // "01"
-      year: 'numeric', // "2019"
-    });
-  };
-
   return story && story.url ? (
     <StoryContainer className="story" data-testid="story">
       <h3>
-        <strong>Author:</strong> {story.by}
+        <strong>
+          <a href={story.url}>{story.title}</a>
+        </strong>
       </h3>
-      <h3>
-        <strong>Title:</strong> {story.title}
-      </h3>
-      <h3>
-        <strong>URL:</strong> <a href={story.url}>Read Article Here</a>
-      </h3>
-      <h3>
-        <strong>Time:</strong> {unixTimeToDate(story.time)}
+      <h3 data-testid="story-by">By: {story.by}</h3>
+      <h3 data-testid="story-date">
+        Date Posted: {unixTimeToDate(story.time)}
       </h3>
     </StoryContainer>
   ) : null;
