@@ -1,10 +1,4 @@
 import React from 'react';
-import { StoriesContainer } from './containers/storiesContainer';
-import './styles/reset.scss';
-import './styles/styles.scss';
+import { StoriesContainer } from './containers/StoriesContainer';
 
-export const App = () => (
-  <div className="App">
-    <StoriesContainer />
-  </div>
-);
+export const App = () => <StoriesContainer />;
