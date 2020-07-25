@@ -1,2 +1,2 @@
-export const MAX_STORIES = 500;
-export const STORY_INCREMENT = 30;
+export const MAX_ARTICLES = 500;
+export const ARTICLE_INCREMENT = 30;

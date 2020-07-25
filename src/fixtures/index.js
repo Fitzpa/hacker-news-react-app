@@ -1,9 +1,9 @@
 export const singularStory = {
-  by: 'Karl Hadwen',
+  by: 'Louie Fitzpatrick',
   id: 1,
   time: 1567209822,
   title: 'Tarnished: Google Responds',
-  url: 'https://something.com/hackernewstut',
+  url: 'https://something.com/hackernews',
 };
 
 export const storyIds = [1];

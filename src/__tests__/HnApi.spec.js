@@ -1,11 +1,11 @@
 import axios from 'axios';
 import {
-  getStoryIds,
-  getStory,
-  newStoriesUrl,
-  storyUrl,
+  getArticleIds,
+  getArticle,
+  newArticlesUrl,
+  articleUrl,
 } from '../services/hnApi';
-import { singularStory, storyIds, emptySingularStory } from '../fixtures';
+import { singularArticle, articleIds, emptySingularArticle } from '../fixtures';
 
 jest.mock('axios');
 
@@ -14,38 +14,38 @@ describe('HackerNews Api', () => {
     jest.resetAllMocks();
   });
 
-  describe('getStory functionality', () => {
-    it('requests and gets a story from the HackerNews Api', async () => {
+  describe('getArticle functionality', () => {
+    it('requests and gets a article from the HackerNews Api', async () => {
       axios.get.mockImplementation(() =>
-        Promise.resolve({ data: singularStory })
+        Promise.resolve({ data: singularArticle })
       );
 
-      const entity = await getStory(1);
+      const entity = await getArticle(1);
       expect(axios.get).toHaveBeenCalledTimes(1);
-      expect(axios.get).toHaveBeenCalledWith(`${storyUrl + 1}.json`);
-      expect(entity).toEqual(singularStory);
+      expect(axios.get).toHaveBeenCalledWith(`${articleUrl + 1}.json`);
+      expect(entity).toEqual(singularArticle);
     });
 
-    it('does not retrieve a story from the Api, but handles gracefully', async () => {
+    it('does not retrieve a article from the Api, but handles gracefully', async () => {
       axios.get.mockImplementation(() =>
-        Promise.resolve({ data: emptySingularStory })
+        Promise.resolve({ data: emptySingularArticle })
       );
 
-      const entity = await getStory(1);
+      const entity = await getArticle(1);
       expect(axios.get).toHaveBeenCalledTimes(1);
-      expect(axios.get).toHaveBeenCalledWith(`${storyUrl + 1}.json`);
-      expect(entity).toEqual(emptySingularStory);
+      expect(axios.get).toHaveBeenCalledWith(`${articleUrl + 1}.json`);
+      expect(entity).toEqual(emptySingularArticle);
     });
   });
 
-  describe('getStoryIds functionality', () => {
-    it('requests and gets story ids from the HackerNews Api', async () => {
-      axios.get.mockImplementation(() => Promise.resolve({ data: storyIds }));
+  describe('getArticleIds functionality', () => {
+    it('requests and gets article ids from the HackerNews Api', async () => {
+      axios.get.mockImplementation(() => Promise.resolve({ data: articleIds }));
 
-      const entity = await getStoryIds();
+      const entity = await getArticleIds();
       expect(axios.get).toHaveBeenCalledTimes(1);
-      expect(axios.get).toHaveBeenCalledWith(newStoriesUrl);
-      expect(entity).toEqual(storyIds);
+      expect(axios.get).toHaveBeenCalledWith(newArticlesUrl);
+      expect(entity).toEqual(articleIds);
     });
   });
 });
